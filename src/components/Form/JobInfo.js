@@ -5,7 +5,21 @@ import Textarea from './Textarea';
 
 const JobInfo = ({ formData, setFormData, errors, setErrors }) => {
   const handleChange = (field, value) => {
-    const updatedData = { ...formData, [field]: value };
+    let filteredValue = value;
+
+    // Input filtering
+    if (field === 'yearsOfExperience') {
+      // Only allow digits
+      filteredValue = value.replace(/[^0-9]/g, '');
+    } else if (field === 'expectedSalary') {
+      // Only allow digits
+      filteredValue = value.replace(/[^0-9]/g, '');
+    } else if (field === 'lastCompanyName') {
+      // Only allow letters, spaces, and dots
+      filteredValue = value.replace(/[^a-zA-Z\s.]/g, '');
+    }
+
+    const updatedData = { ...formData, [field]: filteredValue };
 
     if (field === 'applicationType' && value === 'Internship') {
       updatedData.fresherOrExperienced = '';
@@ -32,27 +46,67 @@ const JobInfo = ({ formData, setFormData, errors, setErrors }) => {
 
   const validate = () => {
     const newErrors = {};
-    if (!formData.applicationType) newErrors.applicationType = 'Please select application type';
-    if (!formData.preferredRole.trim()) newErrors.preferredRole = 'Preferred role is required';
+
+    // applicationType: must be selected
+    if (!formData.applicationType) {
+      newErrors.applicationType = 'Please select application type';
+    }
+
+    // preferredRole: must be selected (not just trimmed)
+    if (!formData.preferredRole || !formData.preferredRole.trim()) {
+      newErrors.preferredRole = 'Preferred role is required';
+    }
 
     if (formData.applicationType === 'Internship') {
-      if (!formData.paymentOption) newErrors.paymentOption = 'Please select free or paid internship';
+      // paymentOption must be selected
+      if (!formData.paymentOption) {
+        newErrors.paymentOption = 'Please select free or paid internship';
+      }
     }
 
     if (formData.applicationType === 'Job') {
-      if (!formData.fresherOrExperienced) newErrors.fresherOrExperienced = 'Please select fresher or experienced';
-      if (formData.fresherOrExperienced === 'Experienced') {
-        if (!formData.yearsOfExperience) newErrors.yearsOfExperience = 'Years of experience is required';
-        if (!formData.lastCompanyName.trim()) newErrors.lastCompanyName = 'Last company name is required';
+      // fresherOrExperienced must be selected
+      if (!formData.fresherOrExperienced) {
+        newErrors.fresherOrExperienced = 'Please select fresher or experienced';
       }
-      if (!formData.expectedSalary) newErrors.expectedSalary = 'Expected salary is required';
+
+      if (formData.fresherOrExperienced === 'Experienced') {
+        // yearsOfExperience: must be a number between 0-50
+        const years = Number(formData.yearsOfExperience);
+        if (!formData.yearsOfExperience || formData.yearsOfExperience === '') {
+          newErrors.yearsOfExperience = 'Years of experience is required';
+        } else if (isNaN(years) || years < 0 || years > 50) {
+          newErrors.yearsOfExperience = 'Years of experience must be between 0 and 50';
+        }
+
+        // lastCompanyName: at least 2 chars, only letters/spaces/dots
+        const companyName = formData.lastCompanyName || '';
+        if (!companyName.trim()) {
+          newErrors.lastCompanyName = 'Last company name is required';
+        } else if (companyName.trim().length < 2) {
+          newErrors.lastCompanyName = 'Last company name must be at least 2 characters';
+        } else if (!/^[a-zA-Z\s.]+$/.test(companyName)) {
+          newErrors.lastCompanyName = 'Last company name can only contain letters, spaces, and dots';
+        }
+      }
+
+      // expectedSalary: must be a positive number, reasonable range (10000 to 10000000)
+      const salary = Number(formData.expectedSalary);
+      if (!formData.expectedSalary || formData.expectedSalary === '') {
+        newErrors.expectedSalary = 'Expected salary is required';
+      } else if (isNaN(salary) || salary <= 0) {
+        newErrors.expectedSalary = 'Expected salary must be a positive number';
+      } else if (salary < 10000 || salary > 10000000) {
+        newErrors.expectedSalary = 'Expected salary must be between 10,000 and 1,00,00,000';
+      }
     }
+
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
 
   React.useEffect(() => {
-    if (window.validateJob) window.validateJob = validate;
+    window.validateJob = validate;
   }, [formData, errors]);
 
   const roleOptions = [
@@ -76,8 +130,8 @@ const JobInfo = ({ formData, setFormData, errors, setErrors }) => {
   ];
 
   return (
-    <div className="space-y-4">
-      <h2 className="text-xl font-semibold text-gray-800">Job / Interview Information</h2>
+    <div className="space-y-3 sm:space-y-4">
+      <h2 className="text-lg sm:text-xl font-semibold text-gray-800">Job / Interview Information</h2>
       
       <Select
         label="Application Type"

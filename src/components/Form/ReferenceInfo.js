@@ -25,14 +25,15 @@ const ReferenceInfo = ({ formData, setFormData, errors, setErrors }) => {
   }, [formData, errors]);
 
   return (
-    <div className="space-y-4">
-      <h2 className="text-xl font-semibold text-gray-800">Reference Information</h2>
+    <div className="space-y-3 sm:space-y-4">
+      <h2 className="text-lg sm:text-xl font-semibold text-gray-800">Reference Information</h2>
       <Input
         label="Reference Person Name"
         value={formData.referencePersonName}
         onChange={(e) => handleChange('referencePersonName', e.target.value)}
         error={errors.referencePersonName}
         required
+        className="text-base"
       />
       <Input
         label="Reference Mobile"
@@ -41,6 +42,10 @@ const ReferenceInfo = ({ formData, setFormData, errors, setErrors }) => {
         onChange={(e) => handleChange('referenceMobile', e.target.value)}
         error={errors.referenceMobile}
         required
+        className="text-base"
+        inputMode="numeric"
+        pattern="[0-9]*"
+        maxLength="10"
       />
       <Textarea
         label="Notes"

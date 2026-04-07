@@ -226,32 +226,32 @@
           <meta property="twitter:description" content="Apply for latest IT jobs and internships at Kevalon Technology. Software developer, web developer, digital marketing, and SEO executive positions available for freshers and experienced candidates." />
           <meta property="twitter:image" content="https://www.kevalontechnology.in/assets/logo/kevalon1.png" />
         </Helmet>
-        <div className="min-h-screen bg-gradient-to-br from-slate-100 via-blue-50 to-slate-200 py-10 px-4">
+        <div className="min-h-screen bg-gradient-to-br from-slate-100 via-blue-50 to-slate-200 py-6 sm:py-10 px-3 sm:px-4">
         <div className="w-full max-w-5xl mx-auto">
           <div className="bg-white rounded-3xl shadow-2xl overflow-hidden border border-gray-100">
             
             {/* Header */}
-            <div className="bg-gradient-to-r from-[#0F4C81] via-[#125E9C] to-[#0B2F4A] px-6 md:px-10 py-10 text-center text-white">
+            <div className="bg-gradient-to-r from-[#0F4C81] via-[#125E9C] to-[#0B2F4A] px-3 sm:px-6 md:px-10 py-5 sm:py-8 md:py-10 text-center text-white">
               <img
                 src="https://www.kevalontechnology.in/assets/logo/kevalon1.png"
                 alt="Kevalon Technology"
-                className="h-20 md:h-20 mx-auto mb-5 object-contain bg-white rounded-xl px-4 py-2 shadow-md"
+                className="h-12 sm:h-16 md:h-20 mx-auto mb-4 sm:mb-5 object-contain bg-white rounded-lg sm:rounded-xl px-3 sm:px-4 py-1.5 sm:py-2 shadow-md"
               />
 
-              <h1 className="text-3xl md:text-4xl font-bold mb-3">
+              <h1 className="text-base sm:text-xl md:text-2xl lg:text-4xl font-bold mb-2 sm:mb-3 leading-tight px-2">
                 IT Job Registration - Kevalon Technology Ahmedabad
               </h1>
 
-              <p className="text-blue-100 text-sm md:text-base max-w-2xl mx-auto leading-relaxed">
+              <p className="text-blue-100 text-xs sm:text-sm md:text-base max-w-2xl mx-auto leading-relaxed px-2">
                 Complete your online job registration form to apply for the latest IT jobs and internships at
                 Kevalon Technology in Ahmedabad. We offer opportunities for freshers and experienced candidates in software development, web development, digital marketing, and SEO executive roles.
               </p>
             </div>
 
             {/* Body */}
-            <div className="p-6 md:p-10 bg-white">
+            <div className="p-3 sm:p-6 md:p-10 bg-white">
               {error && (
-                <div className="mb-6 rounded-2xl border border-red-200 bg-red-50 px-4 py-4 flex gap-3 items-start">
+                <div className="mb-4 sm:mb-6 rounded-xl sm:rounded-2xl border border-red-200 bg-red-50 px-3 sm:px-4 py-3 sm:py-4 flex gap-2 sm:gap-3 items-start">
                   <div className="w-10 h-10 rounded-full bg-red-100 flex items-center justify-center shrink-0">
                     <svg
                       className="w-5 h-5 text-red-500"
@@ -277,8 +277,8 @@
                 </div>
               )}
 
-              <div className="mb-6 rounded-2xl bg-[#0F4C81]/5 border border-[#0F4C81]/10 px-5 py-4">
-                <p className="text-sm md:text-base text-gray-700 leading-relaxed">
+              <div className="mb-4 sm:mb-6 rounded-xl sm:rounded-2xl bg-[#0F4C81]/5 border border-[#0F4C81]/10 px-3 sm:px-4 md:px-5 py-3 sm:py-4">
+                <p className="text-xs sm:text-sm md:text-base text-gray-700 leading-relaxed">
                   Please fill in all required details carefully. Once submitted,
                 your IT job application will be processed and your interview token will be generated automatically. We provide placement registration for freshers and experienced professionals in Ahmedabad's best IT company.
                 </p>
@@ -288,8 +288,8 @@
             </div>
 
             {/* Footer */}
-            <div className="border-t border-gray-100 bg-slate-50 px-6 md:px-10 py-4 text-center">
-              <p className="text-sm text-gray-500">
+            <div className="border-t border-gray-100 bg-slate-50 px-3 sm:px-6 md:px-10 py-3 sm:py-4 text-center">
+              <p className="text-xs sm:text-sm text-gray-500">
                 © {new Date().getFullYear()} Kevalon Technology. All rights reserved.
               </p>
             </div>

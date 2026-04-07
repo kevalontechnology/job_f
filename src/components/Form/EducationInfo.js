@@ -4,7 +4,18 @@ import Select from './Select';
 
 const EducationInfo = ({ formData, setFormData, errors, setErrors }) => {
   const handleChange = (field, value) => {
-    setFormData({ ...formData, [field]: value });
+    let filteredValue = value;
+
+    // Apply input filtering based on field
+    if (field === 'collegeName') {
+      // Allow only letters, spaces, dots, and commas
+      filteredValue = value.replace(/[^a-zA-Z\s.,]/g, '');
+    } else if (field === 'grade') {
+      // Allow letters, numbers, dots, %, and spaces
+      filteredValue = value.replace(/[^a-zA-Z0-9.\s%]/g, '');
+    }
+
+    setFormData({ ...formData, [field]: filteredValue });
     if (errors[field]) {
       setErrors({ ...errors, [field]: '' });
     }
@@ -12,16 +23,42 @@ const EducationInfo = ({ formData, setFormData, errors, setErrors }) => {
 
   const validate = () => {
     const newErrors = {};
-    if (!formData.highestQualification.trim()) newErrors.highestQualification = 'Highest qualification is required';
-    if (!formData.collegeName.trim()) newErrors.collegeName = 'College name is required';
-    if (!formData.grade.trim()) newErrors.grade = 'Grade is required';
-    if (!formData.passingYear) newErrors.passingYear = 'Passing year is required';
+    const currentYear = new Date().getFullYear();
+
+    // Highest Qualification: must be selected (not empty)
+    if (!formData.highestQualification || !formData.highestQualification.trim()) {
+      newErrors.highestQualification = 'Highest qualification is required';
+    }
+
+    // College Name: must be at least 3 characters, only letters/spaces/dots/commas
+    if (!formData.collegeName || !formData.collegeName.trim()) {
+      newErrors.collegeName = 'College name is required';
+    } else if (formData.collegeName.trim().length < 3) {
+      newErrors.collegeName = 'College name must be at least 3 characters';
+    } else if (!/^[a-zA-Z\s.,]+$/.test(formData.collegeName.trim())) {
+      newErrors.collegeName = 'College name can only contain letters, spaces, dots, and commas';
+    }
+
+    // Grade: must be valid (allow formats like "8.5 CGPA", "85%", "A+", "First Class")
+    if (!formData.grade || !formData.grade.trim()) {
+      newErrors.grade = 'Grade is required';
+    } else if (!/^[a-zA-Z0-9.\s%]+$/.test(formData.grade.trim())) {
+      newErrors.grade = 'Grade format is invalid (e.g., "8.5 CGPA", "85%", "A+", "First Class")';
+    }
+
+    // Passing Year: must be selected and not a future year beyond current year
+    if (!formData.passingYear) {
+      newErrors.passingYear = 'Passing year is required';
+    } else if (parseInt(formData.passingYear) > currentYear) {
+      newErrors.passingYear = `Passing year cannot be beyond ${currentYear}`;
+    }
+
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
 
   React.useEffect(() => {
-    if (window.validateEducation) window.validateEducation = validate;
+    window.validateEducation = validate;
   }, [formData, errors]);
 
   const qualificationOptions = [
@@ -38,8 +75,8 @@ const EducationInfo = ({ formData, setFormData, errors, setErrors }) => {
   }
 
   return (
-    <div className="space-y-4">
-      <h2 className="text-xl font-semibold text-gray-800">Education Information</h2>
+    <div className="space-y-3 sm:space-y-4">
+      <h2 className="text-lg sm:text-xl font-semibold text-gray-800">Education Information</h2>
       <Select
         label="Highest Qualification"
         value={formData.highestQualification}

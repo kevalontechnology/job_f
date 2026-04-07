@@ -17,16 +17,16 @@ const Confirmation = () => {
 
   if (!candidate) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-gray-100 p-6">
-        <div className="bg-white shadow-xl rounded-2xl p-10 text-center max-w-md">
-          <FaExclamationCircle className="text-red-500 text-5xl mx-auto mb-4" />
-          <h2 className="text-2xl font-bold mb-2">Data Not Found</h2>
-          <p className="text-gray-500 mb-6">
+      <div className="min-h-screen flex items-center justify-center bg-gray-100 p-3 sm:p-6">
+        <div className="bg-white shadow-xl rounded-2xl p-5 sm:p-8 md:p-10 text-center max-w-md w-full">
+          <FaExclamationCircle className="text-red-500 text-3xl sm:text-4xl md:text-5xl mx-auto mb-3 sm:mb-4" />
+          <h2 className="text-xl sm:text-2xl font-bold mb-2">Data Not Found</h2>
+          <p className="text-sm sm:text-base text-gray-500 mb-5 sm:mb-6">
             No registration data found. Please submit the form again.
           </p>
           <Link
             to="/"
-            className="bg-blue-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-blue-700"
+            className="inline-block bg-blue-600 text-white px-5 sm:px-6 py-2.5 sm:py-3 rounded-lg font-semibold hover:bg-blue-700 min-h-[44px] transition-colors text-sm sm:text-base"
           >
             Go to Registration
           </Link>
@@ -85,8 +85,8 @@ const Confirmation = () => {
         <meta name="keywords" content="application confirmation, interview ID, Kevalon Technology, job application" />
         <meta name="robots" content="noindex, nofollow" />
       </Helmet>
-      <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-indigo-50 flex items-center justify-center px-4 py-10">
-      <div className="max-w-5xl w-full bg-white shadow-2xl rounded-3xl overflow-hidden border border-gray-100">
+      <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-indigo-50 flex items-center justify-center px-2 sm:px-4 py-6 sm:py-10">
+      <div className="max-w-5xl w-full bg-white shadow-2xl rounded-2xl sm:rounded-3xl overflow-hidden border border-gray-100">
 
         {/* Top Bar */}
         <div className="h-2 bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600" />
@@ -94,11 +94,11 @@ const Confirmation = () => {
         <div className="grid md:grid-cols-2">
 
           {/* LEFT SIDE */}
-          <div className="bg-gradient-to-br from-slate-900 to-slate-800 text-white p-10 flex flex-col justify-center items-center text-center relative">
+          <div className="bg-gradient-to-br from-slate-900 to-slate-800 text-white p-5 sm:p-8 md:p-10 flex flex-col justify-center items-center text-center relative">
 
-            <FaCheckCircle className="text-5xl text-emerald-400 mb-5 animate-pulse" />
+            <FaCheckCircle className="text-4xl sm:text-5xl text-emerald-400 mb-5 animate-pulse" />
 
-            <h1 className="text-3xl font-bold mb-3">
+            <h1 className="text-2xl sm:text-3xl font-bold mb-3">
               Registration Successful
             </h1>
 
@@ -109,12 +109,12 @@ const Confirmation = () => {
             </p>
 
             {/* Interview Token */}
-            <div className="bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl px-6 py-5 w-full max-w-xs">
+            <div className="bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl px-3 sm:px-6 py-4 sm:py-5 w-full max-w-xs">
               <p className="text-xs uppercase tracking-widest text-blue-300 mb-1">
                 Interview ID
               </p>
 
-              <p className="text-2xl font-mono font-bold tracking-wider break-all">
+              <p className="text-base sm:text-lg md:text-2xl font-mono font-bold tracking-wide sm:tracking-wider break-all">
                 {interviewToken}
               </p>
             </div>
@@ -125,12 +125,12 @@ const Confirmation = () => {
           </div>
 
           {/* RIGHT SIDE */}
-          <div className="p-10">
+          <div className="p-5 sm:p-8 md:p-10">
 
             {/* Header */}
-            <div className="flex justify-between items-center mb-8">
+            <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6 sm:mb-8">
               <div>
-                <h2 className="text-2xl font-bold text-gray-800">
+                <h2 className="text-xl sm:text-2xl font-bold text-gray-800">
                   Application Summary
                 </h2>
                 <p className="text-gray-500 text-sm">
@@ -150,9 +150,9 @@ const Confirmation = () => {
               {details.map((item, i) => (
                 <div
                   key={i}
-                  className="flex justify-between border-b pb-3"
+                  className="flex flex-col sm:flex-row sm:justify-between border-b pb-3 gap-1"
                 >
-                  <span className="text-gray-500 text-sm font-semibold uppercase">
+                  <span className="text-gray-500 text-xs sm:text-sm font-semibold uppercase">
                     {item.label}
                   </span>
 
@@ -164,7 +164,7 @@ const Confirmation = () => {
             </div>
 
             {/* Next Steps */}
-            <div className="bg-blue-50 border border-blue-100 rounded-xl p-5 mt-8 flex gap-3">
+            <div className="bg-blue-50 border border-blue-100 rounded-xl p-4 sm:p-5 mt-6 sm:mt-8 flex gap-3">
               <FaIdBadge className="text-blue-600 text-xl mt-1" />
 
               <p className="text-sm text-blue-900">
@@ -175,18 +175,18 @@ const Confirmation = () => {
             </div>
 
             {/* Buttons */}
-            <div className="flex flex-col sm:flex-row gap-4 mt-8 print:hidden">
+            <div className="flex flex-col sm:flex-row gap-4 mt-6 sm:mt-8 print:hidden">
 
               <button
                 onClick={handlePrint}
-                className="flex-1 bg-slate-800 text-white py-3 rounded-xl flex items-center justify-center gap-2 hover:bg-black"
+                className="flex-1 bg-slate-800 text-white py-3 rounded-xl flex items-center justify-center gap-2 hover:bg-black min-h-[44px]"
               >
                 <FaPrint /> Print Receipt
               </button>
 
               <Link
                 to="/"
-                className="flex-1 border border-gray-300 py-3 rounded-xl flex items-center justify-center gap-2 hover:bg-gray-50"
+                className="flex-1 border border-gray-300 py-3 rounded-xl flex items-center justify-center gap-2 hover:bg-gray-50 min-h-[44px]"
               >
                 <FaUserPlus /> New Entry
               </Link>

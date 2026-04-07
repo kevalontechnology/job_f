@@ -5,7 +5,7 @@ import {
   FaFilter, FaUser, FaBriefcase, FaCalendarAlt, FaIdBadge 
 } from "react-icons/fa";
 
-const CandidateTable = ({ candidates, onDelete, onStatusUpdate, onEvaluate, onView }) => {
+const CandidateTable = ({ candidates, onDelete, onStatusUpdate, onEvaluate, onView, onExport }) => {
   const [searchTerm, setSearchTerm] = useState('');
   const [filterRole, setFilterRole] = useState('');
   const [filterStatus, setFilterStatus] = useState('');
@@ -37,33 +37,33 @@ const CandidateTable = ({ candidates, onDelete, onStatusUpdate, onEvaluate, onVi
 
   // Helper for status styles
   const getStatusStyles = (status) => {
-    const base = "text-xs font-bold px-3 py-1.5 rounded-full border-0 cursor-pointer outline-none focus:ring-2 focus:ring-offset-1 transition-all ";
+    const base = "text-xs font-bold px-3 py-2.5 rounded-full border-0 cursor-pointer outline-none focus:ring-2 focus:ring-offset-1 transition-all min-h-[44px] ";
     if (status === 'approved') return base + "bg-emerald-100 text-emerald-700 focus:ring-emerald-500";
     if (status === 'rejected') return base + "bg-rose-100 text-rose-700 focus:ring-rose-500";
     return base + "bg-amber-100 text-amber-700 focus:ring-amber-500";
   };
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-4 sm:space-y-6">
       {/* 1. Control Bar */}
-      <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 bg-white p-4 rounded-xl shadow-sm border border-gray-100">
-        <div className="relative flex-1">
-          <FaSearch className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
+      <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-3 sm:gap-4 bg-white p-2.5 sm:p-3 md:p-4 rounded-xl shadow-sm border border-gray-100">
+        <div className="relative flex-1 min-w-0">
+          <FaSearch className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 text-sm" />
           <input
             type="text"
             placeholder="Search candidates..."
-            className="w-full pl-10 pr-4 py-2.5 bg-gray-50 border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:bg-white transition-all outline-none text-sm"
+            className="w-full pl-9 sm:pl-10 pr-3 sm:pr-4 py-2.5 sm:py-3 bg-gray-50 border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:bg-white transition-all outline-none text-base min-h-[44px]"
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
           />
         </div>
 
         <div className="flex flex-wrap items-center gap-2">
-          <div className="flex flex-1 items-center gap-2 text-sm text-gray-600 bg-gray-50 px-3 py-2 rounded-lg border border-gray-200">
-            <FaFilter className="text-gray-400" />
-            <select 
-              className="bg-transparent outline-none cursor-pointer w-full"
-              value={filterRole} 
+          <div className="flex flex-1 min-w-[140px] items-center gap-2 text-sm text-gray-600 bg-gray-50 px-3 py-2.5 rounded-lg border border-gray-200 min-h-[44px]">
+            <FaFilter className="text-gray-400 flex-shrink-0" />
+            <select
+              className="bg-transparent outline-none cursor-pointer w-full min-w-0"
+              value={filterRole}
               onChange={(e) => setFilterRole(e.target.value)}
             >
               <option value="">All Roles</option>
@@ -72,8 +72,8 @@ const CandidateTable = ({ candidates, onDelete, onStatusUpdate, onEvaluate, onVi
           </div>
 
           <button
-            onClick={() => {}}
-            className="flex items-center justify-center gap-2 px-4 py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white rounded-lg transition-colors font-medium text-sm shadow-sm"
+            onClick={onExport}
+            className="flex items-center justify-center gap-2 px-4 py-3 bg-emerald-600 hover:bg-emerald-700 text-white rounded-lg transition-colors font-medium text-sm shadow-sm min-h-[44px]"
           >
             <FaDownload size={14} /> <span className="hidden sm:inline">Export</span>
           </button>
@@ -82,36 +82,36 @@ const CandidateTable = ({ candidates, onDelete, onStatusUpdate, onEvaluate, onVi
 
       {/* 2. Responsive Content: Card Grid (Mobile) & Table (Desktop) */}
       <div className="block lg:hidden">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4">
           {filteredAndSortedCandidates.map((candidate) => (
-            <div key={candidate._id} className="bg-white p-5 rounded-xl border border-gray-100 shadow-sm space-y-4">
+            <div key={candidate._id} className="bg-white p-3 sm:p-4 md:p-5 rounded-xl border border-gray-100 shadow-sm space-y-3 sm:space-y-4">
               <div className="flex items-start justify-between">
-                <div className="flex items-center gap-3">
-                  <div className="h-12 w-12 rounded-full bg-gradient-to-tr from-blue-500 to-indigo-600 flex items-center justify-center text-white font-bold text-lg">
+                <div className="flex items-center gap-3 min-w-0 flex-1">
+                  <div className="h-10 w-10 sm:h-12 sm:w-12 rounded-full bg-gradient-to-tr from-blue-500 to-indigo-600 flex items-center justify-center text-white font-bold text-lg flex-shrink-0">
                     {candidate.personalInfo.firstName[0]}{candidate.personalInfo.lastName[0]}
                   </div>
-                  <div>
-                    <h3 className="font-bold text-gray-900 leading-tight">
+                  <div className="min-w-0 flex-1">
+                    <h3 className="font-bold text-gray-900 leading-tight truncate">
                       {candidate.personalInfo.firstName} {candidate.personalInfo.lastName}
                     </h3>
-                    <p className="text-xs text-gray-500">{candidate.personalInfo.email}</p>
+                    <p className="text-xs text-gray-500 truncate">{candidate.personalInfo.email}</p>
                   </div>
                 </div>
-                
+
               </div>
 
-              <div className="grid grid-cols-2 gap-3 py-3 border-y border-gray-50 text-sm">
-                <div className="flex items-center gap-2 text-gray-600">
-                  <FaBriefcase className="text-gray-400" />
-                  <span>{candidate.jobInfo.position}</span>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-3 py-3 border-y border-gray-50 text-sm">
+                <div className="flex items-center gap-2 text-gray-600 min-w-0">
+                  <FaBriefcase className="text-gray-400 flex-shrink-0" />
+                  <span className="truncate">{candidate.jobInfo.position}</span>
                 </div>
-                <div className="flex items-center gap-2 text-gray-600">
-                  <FaIdBadge className="text-gray-400" />
-                  <span className="font-mono">{candidate.interviewId || 'N/A'}</span>
+                <div className="flex items-center gap-2 text-gray-600 min-w-0">
+                  <FaIdBadge className="text-gray-400 flex-shrink-0" />
+                  <span className="font-mono truncate">{candidate.interviewId || 'N/A'}</span>
                 </div>
-                <div className="flex items-center gap-2 text-gray-600">
-                  <FaCalendarAlt className="text-gray-400" />
-                  <span>{formatDateTime(candidate.submittedAt).split(',')[0]}</span>
+                <div className="flex items-center gap-2 text-gray-600 min-w-0">
+                  <FaCalendarAlt className="text-gray-400 flex-shrink-0" />
+                  <span className="truncate">{formatDateTime(candidate.submittedAt).split(',')[0]}</span>
                 </div>
                 <select
                   value={candidate.status}
@@ -125,21 +125,21 @@ const CandidateTable = ({ candidates, onDelete, onStatusUpdate, onEvaluate, onVi
               </div>
 
               <div className="flex gap-2 pt-2">
-                <button 
+                <button
                   onClick={() => onView(candidate)}
-                  className="flex-1 flex items-center justify-center gap-2 py-2 bg-slate-100 text-slate-800 rounded-lg font-semibold text-sm hover:bg-slate-200 transition-colors"
+                  className="flex-1 flex items-center justify-center gap-2 py-3 bg-slate-100 text-slate-800 rounded-lg font-semibold text-sm hover:bg-slate-200 transition-colors min-h-[44px]"
                 >
                   <FaUser /> View
                 </button>
-                <button 
+                <button
                   onClick={() => onEvaluate(candidate)}
-                  className="flex-1 flex items-center justify-center gap-2 py-2 bg-blue-50 text-blue-600 rounded-lg font-semibold text-sm hover:bg-blue-100 transition-colors"
+                  className="flex-1 flex items-center justify-center gap-2 py-3 bg-blue-50 text-blue-600 rounded-lg font-semibold text-sm hover:bg-blue-100 transition-colors min-h-[44px]"
                 >
                   <FaClipboardCheck /> Evaluate
                 </button>
-                <button 
+                <button
                    onClick={() => onDelete(candidate._id)}
-                   className="px-4 py-2 text-rose-500 bg-rose-50 rounded-lg hover:bg-rose-100 transition-colors"
+                   className="px-4 py-3 text-rose-500 bg-rose-50 rounded-lg hover:bg-rose-100 transition-colors min-h-[44px] min-w-[44px]"
                 >
                   <FaTrashAlt />
                 </button>
@@ -196,9 +196,9 @@ const CandidateTable = ({ candidates, onDelete, onStatusUpdate, onEvaluate, onVi
                   <td className="px-6 py-4 text-sm text-gray-500">{formatDateTime(candidate.submittedAt).split(',')[0]}</td>
                   <td className="px-6 py-4 text-right">
                     <div className="flex justify-end gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
-                      <button onClick={() => onView(candidate)} className="p-2 text-slate-600 hover:bg-slate-100 rounded-lg transition-colors" title="View"><FaUser size={18} /></button>
-                      <button onClick={() => onEvaluate(candidate)} className="p-2 text-blue-600 hover:bg-blue-100 rounded-lg transition-colors" title="Evaluate"><FaClipboardCheck size={18} /></button>
-                      <button onClick={() => onDelete(candidate._id)} className="p-2 text-rose-500 hover:bg-rose-100 rounded-lg transition-colors" title="Delete"><FaTrashAlt size={16} /></button>
+                      <button onClick={() => onView(candidate)} className="p-2 text-slate-600 hover:bg-slate-100 rounded-lg transition-colors min-h-[44px] min-w-[44px]" title="View"><FaUser size={18} /></button>
+                      <button onClick={() => onEvaluate(candidate)} className="p-2 text-blue-600 hover:bg-blue-100 rounded-lg transition-colors min-h-[44px] min-w-[44px]" title="Evaluate"><FaClipboardCheck size={18} /></button>
+                      <button onClick={() => onDelete(candidate._id)} className="p-2 text-rose-500 hover:bg-rose-100 rounded-lg transition-colors min-h-[44px] min-w-[44px]" title="Delete"><FaTrashAlt size={16} /></button>
                     </div>
                   </td>
                 </tr>
@@ -210,7 +210,7 @@ const CandidateTable = ({ candidates, onDelete, onStatusUpdate, onEvaluate, onVi
 
       {/* Empty State */}
       {filteredAndSortedCandidates.length === 0 && (
-        <div className="py-20 text-center bg-white rounded-xl border border-dashed border-gray-300">
+        <div className="py-10 sm:py-20 text-center bg-white rounded-xl border border-dashed border-gray-300">
           <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-gray-50 text-gray-400 mb-4">
             <FaSearch size={24} />
           </div>

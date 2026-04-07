@@ -109,16 +109,22 @@ const AdminDashboard = () => {
           </div>
         </header>
 
-        <div className="max-w-7xl mx-auto px-4 md:px-8 py-6 md:py-8">
+        {/* Mobile Header */}
+        <div className="md:hidden px-2 sm:px-4 pt-3 sm:pt-4 pb-2">
+          <h1 className="text-base sm:text-lg md:text-xl font-black text-gray-900 tracking-tight">Executive Overview</h1>
+          <p className="text-[11px] sm:text-xs text-gray-500">Real-time candidate pipeline metrics</p>
+        </div>
+
+        <div className="max-w-7xl mx-auto px-2 sm:px-4 md:px-8 py-3 sm:py-6 md:py-8">
           {error && (
-            <div className="mb-6 flex items-center gap-3 bg-red-50 border border-red-100 text-red-700 p-4 rounded-xl shadow-sm">
+            <div className="mb-4 sm:mb-6 flex items-center gap-2 sm:gap-3 bg-red-50 border border-red-100 text-red-700 p-3 sm:p-4 rounded-xl shadow-sm">
               <FaExclamationTriangle className="shrink-0" />
-              <p className="text-sm font-semibold">{error}</p>
+              <p className="text-xs sm:text-sm font-semibold break-words">{error}</p>
             </div>
           )}
 
           {/* Statistics Grid */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 mb-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2 sm:gap-4 md:gap-6 mb-4 sm:mb-6 md:mb-8">
             <StatCard 
               title="Total Candidates" 
               value={stats.total} 
@@ -140,13 +146,13 @@ const AdminDashboard = () => {
           </div>
 
           {/* Main Dashboard Layout */}
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8">
             
             {/* Left: Recent Activity List (takes 2 cols on desktop) */}
             <div className="lg:col-span-2 space-y-6">
               <div className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
-                <div className="p-6 border-b border-gray-50 flex items-center justify-between">
-                  <h2 className="text-lg font-bold text-gray-800">Recent Applications</h2>
+                <div className="p-3 sm:p-4 md:p-6 border-b border-gray-50 flex items-center justify-between">
+                  <h2 className="text-sm sm:text-base md:text-lg font-bold text-gray-800">Recent Applications</h2>
                   <button 
                     onClick={() => navigate('/admin/candidates')}
                     className="text-xs font-bold text-blue-600 hover:underline flex items-center gap-1"
@@ -157,27 +163,27 @@ const AdminDashboard = () => {
                 
                 <div className="divide-y divide-gray-50">
                   {candidates.slice(0, 5).map((candidate) => (
-                    <div key={candidate._id} className="p-4 md:p-6 hover:bg-gray-50/50 transition-colors group">
-                      <div className="flex items-center justify-between">
-                        <div className="flex items-center gap-3 md:gap-4">
-                          <div className="h-10 w-10 md:h-12 md:w-12 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center text-sm md:text-base font-bold group-hover:bg-blue-600 group-hover:text-white transition-all">
+                    <div key={candidate._id} className="p-3 sm:p-4 md:p-6 hover:bg-gray-50/50 transition-colors group">
+                      <div className="flex items-center justify-between gap-2">
+                        <div className="flex items-center gap-2 sm:gap-3 md:gap-4 min-w-0 flex-1">
+                          <div className="h-8 w-8 sm:h-10 sm:w-10 md:h-12 md:w-12 rounded-lg sm:rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center text-xs sm:text-sm md:text-base font-bold group-hover:bg-blue-600 group-hover:text-white transition-all shrink-0">
                             {candidate.personalInfo.firstName[0]}{candidate.personalInfo.lastName[0]}
                           </div>
-                          <div>
-                            <div className="font-bold text-gray-900 text-sm md:text-base leading-tight">
+                          <div className="min-w-0 flex-1">
+                            <div className="font-bold text-gray-900 text-xs sm:text-sm md:text-base leading-tight truncate">
                               {candidate.personalInfo.firstName} {candidate.personalInfo.lastName}
                             </div>
-                            <div className="text-xs text-gray-500 mt-0.5">{candidate.jobInfo.position}</div>
+                            <div className="text-[10px] sm:text-xs text-gray-500 mt-0.5 truncate">{candidate.jobInfo.position}</div>
                           </div>
                         </div>
-                        <div className="text-right">
-                          <span className={`text-[10px] uppercase tracking-widest font-black px-2 py-1 rounded-md
+                        <div className="text-right shrink-0">
+                          <span className={`text-[9px] sm:text-[10px] uppercase tracking-wide sm:tracking-widest font-black px-1.5 sm:px-2 py-1 rounded-md whitespace-nowrap
                             ${candidate.status === 'approved' ? 'bg-emerald-100 text-emerald-700' :
                               candidate.status === 'rejected' ? 'bg-rose-100 text-rose-700' :
                               'bg-amber-100 text-amber-700'}`}>
                             {candidate.status}
                           </span>
-                          <div className="text-[10px] text-gray-400 mt-1 font-medium">
+                          <div className="text-[9px] sm:text-[10px] text-gray-400 mt-1 font-medium whitespace-nowrap">
                             {new Date(candidate.submittedAt).toLocaleDateString()}
                           </div>
                         </div>
@@ -185,7 +191,7 @@ const AdminDashboard = () => {
                     </div>
                   ))}
                   {candidates.length === 0 && (
-                    <div className="p-20 text-center">
+                    <div className="p-10 sm:p-20 text-center">
                       <div className="bg-gray-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
                         <FaUsers className="text-gray-400 text-xl" />
                       </div>
@@ -197,42 +203,42 @@ const AdminDashboard = () => {
             </div>
 
             {/* Right: Quick Actions & Productivity */}
-            <div className="space-y-6">
-              <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6">
-                <h2 className="text-lg font-bold text-gray-800 mb-5">Quick Launch</h2>
-                <div className="space-y-3">
+            <div className="space-y-4 sm:space-y-6">
+              <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-3 sm:p-4 md:p-6">
+                <h2 className="text-sm sm:text-base md:text-lg font-bold text-gray-800 mb-3 sm:mb-4 md:mb-5">Quick Launch</h2>
+                <div className="space-y-2 sm:space-y-3">
                   <button
                     onClick={() => navigate('/')}
-                    className="w-full flex items-center gap-4 p-4 bg-gray-50 hover:bg-blue-600 hover:text-white group rounded-xl transition-all text-left"
+                    className="w-full flex items-center gap-3 sm:gap-4 p-3 sm:p-4 bg-gray-50 hover:bg-blue-600 hover:text-white group rounded-xl transition-all text-left"
                   >
-                    <div className="p-3 bg-white group-hover:bg-blue-500 rounded-lg shadow-sm">
-                      <FaPlus className="text-blue-600 group-hover:text-white" />
+                    <div className="p-2 sm:p-3 bg-white group-hover:bg-blue-500 rounded-lg shadow-sm shrink-0">
+                      <FaPlus className="text-blue-600 group-hover:text-white text-sm sm:text-base" />
                     </div>
-                    <div>
-                      <div className="font-bold text-sm">New Entry</div>
-                      <div className="text-[11px] opacity-70">Register a candidate</div>
+                    <div className="min-w-0">
+                      <div className="font-bold text-xs sm:text-sm">New Entry</div>
+                      <div className="text-[10px] sm:text-[11px] opacity-70 truncate">Register a candidate</div>
                     </div>
                   </button>
-                  
+
                   <button
                     onClick={() => navigate('/admin/candidates')}
-                    className="w-full flex items-center gap-4 p-4 bg-gray-50 hover:bg-emerald-600 hover:text-white group rounded-xl transition-all text-left"
+                    className="w-full flex items-center gap-3 sm:gap-4 p-3 sm:p-4 bg-gray-50 hover:bg-emerald-600 hover:text-white group rounded-xl transition-all text-left"
                   >
-                    <div className="p-3 bg-white group-hover:bg-emerald-500 rounded-lg shadow-sm">
-                      <FaUsers className="text-emerald-600 group-hover:text-white" />
+                    <div className="p-2 sm:p-3 bg-white group-hover:bg-emerald-500 rounded-lg shadow-sm shrink-0">
+                      <FaUsers className="text-emerald-600 group-hover:text-white text-sm sm:text-base" />
                     </div>
-                    <div>
-                      <div className="font-bold text-sm">Pipeline</div>
-                      <div className="text-[11px] opacity-70">Review applications</div>
+                    <div className="min-w-0">
+                      <div className="font-bold text-xs sm:text-sm">Pipeline</div>
+                      <div className="text-[10px] sm:text-[11px] opacity-70 truncate">Review applications</div>
                     </div>
                   </button>
                 </div>
               </div>
 
               {/* Tips/Notice Card */}
-              <div className="bg-gradient-to-br from-indigo-600 to-blue-700 rounded-2xl shadow-lg p-6 text-white">
-                <h3 className="font-bold mb-2">Pro Tip</h3>
-                <p className="text-xs leading-relaxed opacity-90">
+              <div className="bg-gradient-to-br from-indigo-600 to-blue-700 rounded-2xl shadow-lg p-3 sm:p-4 md:p-6 text-white">
+                <h3 className="font-bold mb-2 text-xs sm:text-sm md:text-base">Pro Tip</h3>
+                <p className="text-[10px] sm:text-xs leading-relaxed opacity-90">
                   You can export candidate data to CSV from the "Candidates" management page for external reporting.
                 </p>
               </div>
