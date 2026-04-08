@@ -1,15 +1,38 @@
 import React from 'react';
 
-const StatCard = ({ title, value, icon, color }) => (
-  <div className="bg-white p-2.5 sm:p-3 md:p-4 lg:p-6 rounded-xl sm:rounded-2xl shadow-sm border border-gray-100 flex items-center justify-between hover:shadow-md transition-shadow min-w-0">
-    <div className="min-w-0 flex-1 mr-1.5 sm:mr-2">
-      <p className="text-[9px] sm:text-[10px] md:text-xs font-medium text-gray-500 uppercase tracking-wide sm:tracking-wider truncate">{title}</p>
-      <p className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-bold text-gray-900 mt-0.5 sm:mt-1 truncate">{value}</p>
+const StatCard = ({ title, value, icon, color = 'bg-blue-500', subtitle }) => {
+  return (
+    <div className="bg-white rounded-xl sm:rounded-2xl shadow-sm border border-gray-100 overflow-hidden hover:shadow-md transition-all duration-300 group min-w-0">
+      <div className="flex items-center h-full">
+        {/* Left accent bar */}
+        <div className={`w-1.5 sm:w-2 h-full ${color} group-hover:w-2 sm:group-hover:w-3 transition-all duration-300`} />
+
+        {/* Content */}
+        <div className="flex-1 flex items-center justify-between p-3 sm:p-4 md:p-5 lg:p-6 gap-3 sm:gap-4 min-w-0">
+          <div className="min-w-0 flex-1">
+            <p className="text-[10px] sm:text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1 truncate">
+              {title}
+            </p>
+            <p className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-black text-gray-900 truncate leading-tight">
+              {value}
+            </p>
+            {subtitle && (
+              <p className="text-xs sm:text-sm text-gray-500 mt-1 truncate">
+                {subtitle}
+              </p>
+            )}
+          </div>
+
+          {/* Icon in colored circle */}
+          <div className={`${color} text-white p-3 sm:p-4 md:p-5 rounded-xl sm:rounded-2xl shadow-lg group-hover:scale-110 transition-transform duration-300 shrink-0`}>
+            <div className="text-lg sm:text-xl md:text-2xl lg:text-3xl flex items-center justify-center">
+              {icon}
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
-    <div className={`${color} text-white p-1.5 sm:p-2 md:p-2.5 lg:p-4 rounded-lg sm:rounded-xl text-sm sm:text-base md:text-xl lg:text-2xl shadow-lg shrink-0`}>
-      {icon}
-    </div>
-  </div>
-);
+  );
+};
 
 export default StatCard;
