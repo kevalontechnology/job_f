@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState, useEffect, useRef, useCallback } from 'react';
+import React, { createContext, useContext, useState, useEffect, useRef, useCallback, useMemo } from 'react';
 import { useAuth } from './AuthContext';
 import api from '../utils/api';
 
@@ -243,7 +243,8 @@ export const MenuProvider = ({ children }) => {
     return currentPagePermissions[permType] || false;
   }, [isAdmin, currentPagePermissions]);
 
-  const value = {
+  // Memoize context value to prevent unnecessary re-renders
+  const value = useMemo(() => ({
     menuData,
     currentPagePermissions,
     isAdmin,
@@ -251,7 +252,7 @@ export const MenuProvider = ({ children }) => {
     fetchMenus,
     updateCurrentPagePermissions,
     hasPermission
-  };
+  }), [menuData, currentPagePermissions, isAdmin, loading, fetchMenus, updateCurrentPagePermissions, hasPermission]);
 
   return (
     <MenuContext.Provider value={value}>

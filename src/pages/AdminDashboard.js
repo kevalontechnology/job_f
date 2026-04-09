@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useMemo } from 'react';
+import { Helmet } from 'react-helmet-async';
 import { useNavigate } from 'react-router-dom';
 import toast from 'react-hot-toast';
 import Layout from '../components/Layout';
@@ -102,6 +103,10 @@ const AdminDashboard = () => {
       isRefreshing={isRefreshing}
       showRefresh
     >
+      <Helmet>
+        <title>Dashboard | Kevalon Admin</title>
+        <meta name="robots" content="noindex, nofollow" />
+      </Helmet>
       {/* Stat Cards - 4 in a row */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 mb-6 md:mb-8">
         <StatCard

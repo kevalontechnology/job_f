@@ -26,7 +26,7 @@ const RoleMaster = () => {
   const fetchRoles = useCallback(async () => {
     try {
       setLoading(true);
-      const response = await api.get('/api/roles');
+      const response = await api.get('/roles');
       setRoles(response.data);
       setFilteredRoles(response.data);
     } catch (error) {
@@ -104,10 +104,10 @@ const RoleMaster = () => {
       };
 
       if (selectedRole) {
-        await api.put(`/api/roles/${selectedRole._id}`, payload);
+        await api.put(`/roles/${selectedRole._id}`, payload);
         toast.success('Role updated successfully');
       } else {
-        await api.post('/api/roles', payload);
+        await api.post('/roles', payload);
         toast.success('Role created successfully');
       }
 
@@ -129,7 +129,7 @@ const RoleMaster = () => {
 
   const handleDeleteConfirm = async () => {
     try {
-      await api.delete(`/api/roles/${selectedRole._id}`);
+      await api.delete(`/roles/${selectedRole._id}`);
       toast.success('Role deleted successfully');
       setIsConfirmModalOpen(false);
       setSelectedRole(null);

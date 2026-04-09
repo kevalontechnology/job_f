@@ -18,7 +18,7 @@ const Analytics = () => {
   const fetchCandidates = async () => {
     try {
       setLoading(true);
-      const response = await api.get('/api/candidates');
+      const response = await api.get('/candidates');
       setCandidates(response.data);
     } catch (error) {
       toast.error('Failed to fetch analytics data');

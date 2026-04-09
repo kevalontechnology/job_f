@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
-
-
+import { Helmet } from 'react-helmet-async';
 import Layout from '../../components/Layout';
 import api from '../../utils/api';
 import toast from 'react-hot-toast';
@@ -179,6 +178,10 @@ const MenuMaster = () => {
 
   return (
     <>
+      <Helmet>
+        <title>Menu Master | Kevalon Admin</title>
+        <meta name="robots" content="noindex, nofollow" />
+      </Helmet>
       <Layout title="Menu Master" subtitle="Manage menu groups and menu items">
           <div className="max-w-7xl mx-auto">
             {/* Tabs */}

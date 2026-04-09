@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
-
-
+import { Helmet } from 'react-helmet-async';
 import Layout from '../../components/Layout';
 import api from '../../utils/api';
 import toast from 'react-hot-toast';
@@ -323,6 +322,10 @@ const RolePermissions = () => {
 
   return (
     <>
+      <Helmet>
+        <title>Role Permissions | Kevalon Admin</title>
+        <meta name="robots" content="noindex, nofollow" />
+      </Helmet>
       <Layout title="Role Permissions" subtitle="Assign permissions to roles for menu access control">
 
           <div className="max-w-7xl mx-auto px-4 sm:px-8 py-8">

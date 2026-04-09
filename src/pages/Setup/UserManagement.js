@@ -30,7 +30,7 @@ const UserManagement = () => {
   const fetchUsers = useCallback(async () => {
     try {
       setLoading(true);
-      const response = await api.get('/api/users');
+      const response = await api.get('/users');
       setUsers(response.data);
       setFilteredUsers(response.data);
     } catch (error) {
@@ -43,7 +43,7 @@ const UserManagement = () => {
 
   const fetchRoles = useCallback(async () => {
     try {
-      const response = await api.get('/api/roles');
+      const response = await api.get('/roles');
       setRoles(response.data.filter((role) => role.isActive));
     } catch (error) {
       console.error('Error fetching roles:', error);
@@ -152,10 +152,10 @@ const UserManagement = () => {
       }
 
       if (selectedUser) {
-        await api.put(`/api/users/${selectedUser._id}`, payload);
+        await api.put(`/users/${selectedUser._id}`, payload);
         toast.success('User updated successfully');
       } else {
-        await api.post('/api/users', payload);
+        await api.post('/users', payload);
         toast.success('User created successfully');
       }
 
@@ -181,7 +181,7 @@ const UserManagement = () => {
 
   const handleDeleteConfirm = async () => {
     try {
-      await api.delete(`/api/users/${selectedUser._id}`);
+      await api.delete(`/users/${selectedUser._id}`);
       toast.success('User deleted successfully');
       setIsConfirmModalOpen(false);
       setSelectedUser(null);
