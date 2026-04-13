@@ -1,12 +1,11 @@
 import React, { useState, useEffect } from "react";
 import {
-  FaTimes, FaEnvelope, FaPhone, FaMapMarkerAlt, FaBriefcase,
+  FaTimes, FaEnvelope, FaPhone, FaMapMarkerAlt,
   FaSchool, FaCalendarAlt, FaCheckCircle, FaUser,
-  FaGraduationCap, FaShieldAlt, FaImage, FaClipboardCheck
+  FaGraduationCap, FaShieldAlt, FaImage
 } from "react-icons/fa";
 import { formatDate } from "../../utils/helpers";
 
-const PAYMENT_STATUS_OPTIONS = ["pending", "50%", "100%"];
 const APPLICATION_STATUS_OPTIONS = ["pending", "approved", "rejected"];
 
 const CandidateDetailsModal = ({

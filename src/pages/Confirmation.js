@@ -1,7 +1,7 @@
-import React, { useState } from "react";
+import React from "react";
 import { useLocation, Link } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
-import { formatDate, formatDateTime } from "../utils/helpers";
+import { formatDateTime } from "../utils/helpers";
 import {
   FaPrint,
   FaUserPlus,
@@ -13,7 +13,7 @@ import {
 const Confirmation = () => {
   const location = useLocation();
   const { candidate } = location.state || {};
-  const [showDetails, setShowDetails] = useState(false);
+
 
   if (!candidate) {
     return (
@@ -44,19 +44,6 @@ const Confirmation = () => {
     }`.trim();
 
   const interviewToken = candidate.interviewId || candidate._id || "N/A";
-
-  const personalInfo = candidate.personalInfo || {};
-  const educationInfo = candidate.educationInfo || [];
-  const jobInfo = candidate.jobInfo || {};
-
-  const formattedDob = personalInfo.dateOfBirth
-    ? formatDate(personalInfo.dateOfBirth)
-    : "N/A";
-
-  const salaryValue = jobInfo.expectedSalary || 0;
-  const formattedSalary = salaryValue
-    ? `₹${salaryValue.toLocaleString()}`
-    : "N/A";
 
   const details = [
     {

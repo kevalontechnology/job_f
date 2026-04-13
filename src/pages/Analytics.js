@@ -3,7 +3,7 @@ import { Helmet } from 'react-helmet-async';
 import Layout from '../components/Layout';
 import api from '../utils/api';
 import toast from 'react-hot-toast';
-import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, BarChart, Bar, Cell } from 'recharts';
+import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 import { FaChartLine, FaFilter } from 'react-icons/fa';
 
 const Analytics = () => {

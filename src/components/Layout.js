@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Sidebar from './Sidebar';
 import { useAuth } from '../contexts/AuthContext';
-import { FaBars, FaSignOutAlt, FaUserCircle } from 'react-icons/fa';
+import { FaBars, FaSignOutAlt } from 'react-icons/fa';
 
 const Header = ({ title, onToggleSidebar }) => {
   const { logout, user } = useAuth();

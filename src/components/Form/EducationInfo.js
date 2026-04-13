@@ -59,6 +59,7 @@ const EducationInfo = ({ formData, setFormData, errors, setErrors }) => {
 
   React.useEffect(() => {
     window.validateEducation = validate;
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [formData, errors]);
 
   const qualificationOptions = [

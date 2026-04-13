@@ -65,6 +65,7 @@ const Candidates = () => {
 
   useEffect(() => {
     fetchCandidates();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const fetchCandidates = async () => {

@@ -1,7 +1,7 @@
 import React from 'react';
 import Input from './Input';
 import Select from './Select';
-import Textarea from './Textarea';
+
 
 const JobInfo = ({ formData, setFormData, errors, setErrors }) => {
   const handleChange = (field, value) => {
@@ -107,6 +107,7 @@ const JobInfo = ({ formData, setFormData, errors, setErrors }) => {
 
   React.useEffect(() => {
     window.validateJob = validate;
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [formData, errors]);
 
   const roleOptions = [

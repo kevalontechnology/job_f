@@ -64,6 +64,7 @@ const PersonalInfo = ({ formData, setFormData, errors, setErrors }) => {
   // Expose validate to parent
   React.useEffect(() => {
     window.validatePersonal = validate;
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [formData, errors]);
 
   const genderOptions = [
